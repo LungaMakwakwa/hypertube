@@ -11,7 +11,7 @@ const Buffer = require('buffer').Buffer;
 const urlParse = require('url').parse;
 const crypto = require('crypto');
 const torrentParser = require('./torrent-parser');
-const util = require('./util');
+const util = require('../util');
 
 module.exports.getPeers = (torrent, callback) => {
   const socket = dgram.createSocket('udp4');
@@ -41,6 +41,8 @@ function udpSend(socket, message, rawUrl, callback=()=>{}) {
   socket.send(message, 0, message.length, url.port, url.host, callback);
 }
 
+
+//identify whether a response was a connect response or an announce response.
 function respType(resp) {
   const action = resp.readUInt32BE(0);
   if (action === 0) return 'connect';

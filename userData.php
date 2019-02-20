@@ -1,9 +1,10 @@
 <?php
 //Load the database configuration file
 require_once 'core/init.php';
+$db = DB::getInstance();
 
 
-alert ($_POST);
+//var_dump ($_POST);
 //Convert JSON data into PHP variable
 $userData = json_decode($_POST['userData']);
 if(!empty($userData)){
@@ -12,8 +13,10 @@ if(!empty($userData)){
     $prevQuery = "SELECT * FROM users WHERE oauth_provider = '".$oauth_provider."' AND oauth_uid = '".$userData->id."'";
 
     $prevResult = $db->query($prevQuery);
-    if($prevResult->num_rows > 0){ 
+    if($prevResult->count() > 0){ 
         //Update user data if already exists
+
+       // var_dump($userData->gender);
         $query = "UPDATE users SET first_name = '".$userData->first_name."', last_name = '".$userData->last_name."', email = '".$userData->email."', gender = '".$userData->gender."', locale = '".$userData->locale."', picture = '".$userData->picture->data->url."', link = '".$userData->link."', modified = '".date("Y-m-d H:i:s")."' WHERE oauth_provider = '".$oauth_provider."' AND oauth_uid = '".$userData->id."'";
         $update = $db->query($query);
     }else{

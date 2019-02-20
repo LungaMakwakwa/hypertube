@@ -15,6 +15,10 @@
         <img style="width:200px" style="height:50px" src="images/fblogin.png"/>
     </a>
 
+    <a href="#" onclick="fbLogin()" id="fbLink">
+        <img style="width:200px" style="height:50px" src="images/42_logo.png"/>
+    </a>
+
     <!-- Display user profile data -->
     <div id="userData"></div>
 </body>
